@@ -2,4 +2,5 @@
 /Libraries/
 Token
 TypeWriter.ps1
+TypeWriter.sh
 HTTP-Key.dat

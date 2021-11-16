@@ -3,4 +3,6 @@ return {
 
     GatewayRequest = "/gateway/bot",
 
+    Role = "/guilds/%s/roles/%s"
+
 }

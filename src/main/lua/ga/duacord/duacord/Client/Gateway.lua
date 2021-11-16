@@ -19,6 +19,9 @@ function GetConnection(Url, Path)
 end
 
 function Gateway:Connect()
+
+    self.Client.Logger:Info("Connecting to discord!")
+
     local Response, Body = WebRequest(
         "GET",
         HttpConstant.BaseUrl .. HttpConstant.GatewayRequest,

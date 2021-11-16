@@ -9,8 +9,20 @@ function Package.OnInitialize()
   Client:new()
 
   Logger:Info("Package loaded!")
-  Client:on("READY", function() Logger:Info("Ready") end)
+
+  Client:on("Ready", function()
+    local Guild = Client:GetGuild("783625199702245436")
+
+    local Role = Guild:GetRole("910169441168420884")
+    
+    Role:Edit()
+  end)
+
+  Client:on("Ready", function() Logger:Info("Ready event") end)
+
   Client:Run(Token)
+
+  
 
 end
 

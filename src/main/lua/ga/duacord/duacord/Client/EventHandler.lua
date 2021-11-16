@@ -1,5 +1,7 @@
 local EventHandler = Class:extend()
 
+local Guild = Import("ga.duacord.duacord.Structures.Guild")
+
 function EventHandler:initialize(Gateway)
 
     self.Gateway = Gateway
@@ -10,19 +12,16 @@ end
 EventHandler.Events = {}
 
 function EventHandler.Events.READY(Client, Data)
-    Client.Logger:Info("READY")
-    Client:emit("Ready")
+    Client.Logger:Info("Received Ready")
 end
 
 function EventHandler.Events.GUILD_CREATE(Client, Data)
-    Client.Logger:Info("Guild")
-    p(Data)
+    Client.Logger:Info("Received Guilds")
+    Client.Guilds[Data.id] = Guild:new(Data, Client)
     Client:emit("Ready")
 end
 
 function EventHandler.Events.GUILD_UPDATE(Client, Data)
-    Client.Logger:Info("Guild")
-    p(Data)
     Client:emit("Ready")
 end
 
@@ -34,7 +33,7 @@ function EventHandler:HandleEvent(Message)
             self.Client.Logger:Warn(string.format("Unhandled gateway event '%s'", Message.t))
         end
     elseif Message.op == 10 then
-        self.Client.Logger:Info("Hello")
+        self.Client.Logger:Info("Received Hello")
         self.Client:emit("Hello")
     elseif Message.op == 11 then
         self.Client:emit("HeartBeatAck")

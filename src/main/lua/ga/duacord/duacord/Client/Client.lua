@@ -19,17 +19,24 @@ function Client:Run(Token, TokenType, Settings)
     local ConnectionToken = (TokenType or "Bot ") .. Token
     
     self.Token = ConnectionToken
+    self.AuthHeader = {"Authorization", self.Token}
     self.Gateway = Gateway:new(self)
     self.Settings = ParseSettings(Settings or {})
     self.Logger = Logger:new({Debug = self.Settings.Debug})
     self.Guilds = {}
 
-    self.Gateway:Connect()
+    coroutine.wrap(function()
+        self.Gateway:Connect()
+    end)()
 
     --print(Import("ga.duacord.duacord.Libraries.TableToString")(self))
 
 
 
+end
+
+function Client:GetGuild(Id)
+    return self.Guilds[Id]
 end
 
 return Client
