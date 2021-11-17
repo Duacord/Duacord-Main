@@ -1,12 +1,14 @@
 local Guild = Class:extend()
 
-local Role = Import("ga.duacord.duacord.Structures.Role")
-local Member = Import("ga.duacord.duacord.Structures.Member")
+
 
 
 function Guild:initialize(Data, Client)
 
     self.Client = Client
+
+    local Role = self.Client.Classes.Classes.Role
+    local Member = self.Client.Classes.Classes.Role
 
     self.Id = Data.id
     self.Name = Data.name

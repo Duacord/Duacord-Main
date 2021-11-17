@@ -1,12 +1,11 @@
 local Member = Class:extend()
 
 local HttpConstant = Import("ga.duacord.duacord.Constants.HTTP")
-local User = Import("ga.duacord.duacord.Structures.User")
 
 
 function Member:initialize(Data, Guild)
     self.Guild = Guild
-
+    self.Client = Guild.Client
     
     self.Nick = Data.nick
     self.Avatar = Data.avatar
@@ -17,7 +16,7 @@ function Member:initialize(Data, Guild)
     self.Pending = Data.pending
     self.Permissions = Data.permissions
 
-    self.User = User:new(Data.user, Member)
+    self.User = Client.Classes.Classes.User:new(Data.user, Member)
 
     self.Roles = {}
     for Index, RoleId in pairs(Data.roles) do
