@@ -11,6 +11,8 @@ EventHandler.Events = {}
 
 function EventHandler.Events.READY(Client, Data)
     Client.Logger:Info("Received Ready")
+    p(Data)
+    --Client:emit("Ready")
 end
 
 function EventHandler.Events.GUILD_CREATE(Client, Data)
@@ -20,7 +22,6 @@ function EventHandler.Events.GUILD_CREATE(Client, Data)
 end
 
 function EventHandler.Events.GUILD_UPDATE(Client, Data)
-    Client:emit("Ready")
 end
 
 function EventHandler:HandleEvent(Message)

@@ -30,7 +30,7 @@ function Client:initialize()
         },
 
         Classes = {
-            Clannel = Import("ga.duacord.duacord.Classes.Channel"),
+            Channel = Import("ga.duacord.duacord.Classes.Channel"),
             Guild = Import("ga.duacord.duacord.Classes.Guild"),
             Member = Import("ga.duacord.duacord.Classes.Member"),
             Role = Import("ga.duacord.duacord.Classes.Role"),

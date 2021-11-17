@@ -9,6 +9,7 @@ function Guild:initialize(Data, Client)
 
     local Role = self.Client.Classes.Classes.Role
     local Member = self.Client.Classes.Classes.Role
+    local Channel = self.Client.Classes.Classes.Channel
 
     self.Id = Data.id
     self.Name = Data.name
@@ -37,7 +38,6 @@ function Guild:initialize(Data, Client)
     self.Unavailable = Data.unavailable
     self.MemberCount = Data.member_count
     self.VoiceStates = Data.voice_states
-    self.Channels = Data.channels
     self.Threads = Data.threads
     self.Presences = Data.presences
     self.MaxPresences = Data.max_presences
@@ -64,6 +64,12 @@ function Guild:initialize(Data, Client)
     for Index, NewMember in pairs(Data.members) do
         self.Members[NewMember.user.id] = Member:new(NewMember, self)
     end
+
+    self.Channels = {} 
+    for Index, NewChannel in pairs(Data.channels) do
+        self.Channels[NewChannel.id] = Channel:new(NewChannel, self)
+    end
+
 end
 
 function Guild:GetRole(Id)

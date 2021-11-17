@@ -33,7 +33,7 @@ function Channel:initialize(Data, Guild)
     self.Default_auto_archive_duration = Data.default_auto_archive_duration
     self.Permissions = Data.permissions
 
-
+    --p(self)
 end
 
 function Channel:Edit(Data, AuditReason)
