@@ -1,7 +1,5 @@
 local EventHandler = Class:extend()
 
-local Guild = Import("ga.duacord.duacord.Structures.Guild")
-
 function EventHandler:initialize(Gateway)
 
     self.Gateway = Gateway
@@ -17,7 +15,7 @@ end
 
 function EventHandler.Events.GUILD_CREATE(Client, Data)
     Client.Logger:Info("Received Guilds")
-    Client.Guilds[Data.id] = Guild:new(Data, Client)
+    Client.Guilds[Data.id] = Client.Classes.Classes.Guild:new(Data, Client)
     Client:emit("Ready")
 end
 

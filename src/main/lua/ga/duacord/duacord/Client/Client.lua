@@ -17,6 +17,28 @@ function ParseSettings(Settings)
     return ParsedSettings
 end
 
+function Client:initialize()
+    self.Classes = {
+        Client = {
+            EventHandler = Import("ga.duacord.duacord.Client.EventHandler"),
+            Gateway = Import("ga.duacord.duacord.Client.Gateway")
+        },
+
+        Constants = {
+            EndPoints = Import("ga.duacord.duacord.Constants.Endpoints"),
+            HTTP = Import("ga.duacord.duacord.Constants.HTTP"),
+        },
+
+        Classes = {
+            Clannel = Import("ga.duacord.duacord.Classes.Channel"),
+            Guild = Import("ga.duacord.duacord.Classes.Guild"),
+            Member = Import("ga.duacord.duacord.Classes.Member"),
+            Role = Import("ga.duacord.duacord.Classes.Role"),
+            User = Import("ga.duacord.duacord.Classes.User"),
+        }
+    }
+end
+
 function Client:Run(Token, TokenType, Settings)
     local ConnectionToken = (TokenType or "Bot ") .. Token
     
