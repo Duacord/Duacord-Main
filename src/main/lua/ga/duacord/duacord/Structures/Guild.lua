@@ -1,6 +1,8 @@
 local Guild = Class:extend()
 
 local Role = Import("ga.duacord.duacord.Structures.Role")
+local Member = Import("ga.duacord.duacord.Structures.Member")
+
 
 function Guild:initialize(Data, Client)
 
@@ -33,7 +35,6 @@ function Guild:initialize(Data, Client)
     self.Unavailable = Data.unavailable
     self.MemberCount = Data.member_count
     self.VoiceStates = Data.voice_states
-    self.Members = Data.members
     self.Channels = Data.channels
     self.Threads = Data.threads
     self.Presences = Data.presences
@@ -55,6 +56,11 @@ function Guild:initialize(Data, Client)
     self.Roles = {}
     for Index, NewRole in pairs(Data.roles) do
         self.Roles[NewRole.id] = Role:new(NewRole, self)
+    end
+
+    self.Members = {}
+    for Index, NewMember in pairs(Data.members) do
+        self.Members[NewMember.user.id] = Member:new(NewMember, self)
     end
 end
 

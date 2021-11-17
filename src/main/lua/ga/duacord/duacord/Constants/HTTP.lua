@@ -1,8 +1,8 @@
 return {
-    BaseUrl = "https://discord.com/api",
+    BASEURL = "https://discord.com/api",
 
-    GatewayRequest = "/gateway/bot",
+    GATEWAY_BOT = "/gateway/bot",
 
-    Role = "/guilds/%s/roles/%s"
+    EndPoints = Import("ga.duacord.duacord.Constants.Endpoints")
 
 }

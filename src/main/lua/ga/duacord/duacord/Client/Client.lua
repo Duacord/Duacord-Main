@@ -1,6 +1,8 @@
 local Client = Class:extend()
 local Gateway = Import("ga.duacord.duacord.Client.Gateway")
 local Logger = Import("nl.cubic-inc.logger.Main")
+local API = Import("ga.duacord.duacord.API.API")
+
 
 local DefaultSettings = {
     Intents = 32767,
@@ -19,6 +21,7 @@ function Client:Run(Token, TokenType, Settings)
     local ConnectionToken = (TokenType or "Bot ") .. Token
     
     self.Token = ConnectionToken
+    self.API = API:new(self)
     self.AuthHeader = {"Authorization", self.Token}
     self.Gateway = Gateway:new(self)
     self.Settings = ParseSettings(Settings or {})

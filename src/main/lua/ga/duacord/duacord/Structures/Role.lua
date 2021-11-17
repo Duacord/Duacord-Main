@@ -1,7 +1,7 @@
 local Role = Class:extend()
 
-local Http = Import("ga.duacord.http.Main")
 local HttpConstant = Import("ga.duacord.duacord.Constants.HTTP")
+
 
 function Role:initialize(Data, Guild)
     self.Guild = Guild
@@ -18,26 +18,51 @@ function Role:initialize(Data, Guild)
     self.Mentionable = Data.mentionable
     self.Tags = Data.tags
 
-
 end
 
-function Role:Edit(Data)
+function Role:Edit(Data, AuditReason)
     Data = Data or {}
 
-    local Response, Body = Http["coro-http"].request(
+    local Response, Body = self.Guild.Client.API:Request(
         "PATCH",
-        HttpConstant.BaseUrl .. string.format(HttpConstant.Role, self.Guild.Id, self.Id),
-        {
-            self.Guild.Client.AuthHeader,
-            {"X-Audit-Log-Reason", "sus"},
-            {"Content-Type", "application/json"}
-        },
-        Json.encode({name = "tsetsts"})
+        HttpConstant.BASEURL .. string.format(HttpConstant.EndPoints.GUILD_ROLE, self.Guild.Id, self.Id),
+        Data,
+        AuditReason
     )
 
-    p(Response)
-    p(Body)
+    return Response.code == 200, Body.message
+end
+
+function Role:Delete(Reason)
+    local Response, Body = self.Guild.Client.API:Request(
+        "DELETE",
+        HttpConstant.BASEURL .. string.format(HttpConstant.EndPoints.GUILD_ROLE, self.Guild.Id, self.Id),
+        {},
+        Reason
+    )
+
+    Body = Body or {}
+    return Response.code == 204, Body.message
+
+end
+
+function Role:SetMentioning(Enable, Reason)
+    return self:Edit({mentionable = Enable}, Reason)
+end
+
+function Role:SetHoist(Enable, Reason)
+    return self:Edit({hoist = Enable}, Reason)
 end
 
 
-return Role
+function Role:SetColor(Color, Reason)
+    return self:Edit({color = Color}, Reason)
+end
+
+function Role:SetName(Name, Reason)
+    return self:Edit({name = Name}, Reason)
+end
+
+
+
+return Role 

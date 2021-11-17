@@ -13,9 +13,9 @@ function Package.OnInitialize()
   Client:on("Ready", function()
     local Guild = Client:GetGuild("783625199702245436")
 
-    local Role = Guild:GetRole("910169441168420884")
+    local Role = Guild:GetRole("797073333186461698")
     
-    Role:Edit()
+    p(Role:SetName("bla bla"))
   end)
 
   Client:on("Ready", function() Logger:Info("Ready event") end)

@@ -24,7 +24,7 @@ function Gateway:Connect()
 
     local Response, Body = WebRequest(
         "GET",
-        HttpConstant.BaseUrl .. HttpConstant.GatewayRequest,
+        HttpConstant.BASEURL .. HttpConstant.GATEWAY_BOT,
         {
             {"Authorization", self.Client.Token}
         }
