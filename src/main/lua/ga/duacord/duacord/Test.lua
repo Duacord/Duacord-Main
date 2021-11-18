@@ -13,6 +13,8 @@ function Package.OnInitialize()
     local Role = Guild:GetRole("797073333186461698")
     
     p(Role.Color)
+
+    for i, v in pairs(Client.User) do print(i, v) end
   end)
 
   Client:on("Ready", function() Logger:Info("Ready event") end)

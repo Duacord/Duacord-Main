@@ -11,14 +11,24 @@ EventHandler.Events = {}
 
 function EventHandler.Events.READY(Client, Data)
     Client.Logger:Info("Received Ready")
-    p(Data)
-    --Client:emit("Ready")
+    Client.GuildCount = #Data.guilds
+    Client.User = Client.Classes.Classes.User:new(Data.user)
+    print(table.ToString(Data))
 end
 
 function EventHandler.Events.GUILD_CREATE(Client, Data)
     Client.Logger:Info("Received Guilds")
     Client.Guilds[Data.id] = Client.Classes.Classes.Guild:new(Data, Client)
-    Client:emit("Ready")
+
+    local GuildCount = 0
+
+    for Index, IndexedGuild in pairs(Client.Guilds) do
+        GuildCount = GuildCount + 1
+    end
+    
+    if GuildCount == Client.GuildCount then
+        Client:emit("Ready")
+    end
 end
 
 function EventHandler.Events.GUILD_UPDATE(Client, Data)
