@@ -76,4 +76,12 @@ function Guild:GetRole(Id)
     return self.Roles[Id]
 end
 
+function Guild:GetMember(Id)
+    return self.Members[Id]
+end
+
+function Guild:GetChannel(Id)
+    return self.Channels[Id]
+end
+
 return Guild

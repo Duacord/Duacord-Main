@@ -9,6 +9,7 @@ local HttpConstant = Import("ga.duacord.duacord.Constants.HTTP")
 function Gateway:initialize(GatewayClient)
     self.Client = GatewayClient
     self.EventHandler = EventHandler:new(self)
+    self.HeartInfo = {}
 end
 
 function GetConnection(Url, Path)
@@ -36,7 +37,7 @@ function Gateway:Connect()
 
     self.SocketConnection = {Response = Response, Read = Read, Write = Write}
 
-    self.SendHeartBeat = function()
+    self.HeartInfo.SendHeartBeat = function()
         self.SocketConnection.Write(
             {
                payload = Json.encode(
@@ -50,8 +51,9 @@ function Gateway:Connect()
         )
     end
 
-    self.Heart = coroutine.wrap(function()
-        self.SendHeartBeat()
+    self.HeartInfo.Heart = coroutine.wrap(function()
+        self.Client.Logger:Info(string.format("Starting Heart (Speed set to %s seconds)", self.HeartInfo.HeartSpeed / 1000))
+        self.HeartInfo.SendHeartBeat()
 
         self.SocketConnection.Write({payload = Json.encode({
             op = 2, d = {
@@ -77,8 +79,8 @@ function Gateway:Connect()
         }})})
 
         while true do
-            Sleep(self.HeartSpeed)
-            self.SendHeartBeat()
+            Sleep(self.HeartInfo.HeartSpeed)
+            self.HeartInfo.SendHeartBeat()
         end
     end)
 
@@ -94,10 +96,10 @@ function Gateway:Connect()
             self.EventHandler:HandleEvent(Decoded)
 
             if Decoded.op == 10 and not self.HeartSpeed then
-                self.HeartSpeed = Decoded.d["heartbeat_interval"]
-                self.Heart()
+                self.HeartInfo.HeartSpeed = Decoded.d["heartbeat_interval"]
+                self.HeartInfo.Heart()
             elseif Decoded.op == 10 then
-                self.Heart()
+                self.HeartInfo.Heart()
             end
 
         else

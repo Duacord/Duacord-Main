@@ -13,7 +13,7 @@ function EventHandler.Events.READY(Client, Data)
     Client.Logger:Info("Received Ready")
     Client.GuildCount = #Data.guilds
     Client.User = Client.Classes.Classes.User:new(Data.user)
-    print(table.ToString(Data))
+    Client.SessionId = Data.session_id
 end
 
 function EventHandler.Events.GUILD_CREATE(Client, Data)
@@ -32,6 +32,11 @@ function EventHandler.Events.GUILD_CREATE(Client, Data)
 end
 
 function EventHandler.Events.GUILD_UPDATE(Client, Data)
+
+end
+
+function EventHandler.Events.TYPING_START(Client, Data)
+    print(table.ToString(Data))
 end
 
 function EventHandler:HandleEvent(Message)

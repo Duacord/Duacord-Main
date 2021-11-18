@@ -10,11 +10,11 @@ function Package.OnInitialize()
 
   Client:on("Ready", function()
     local Guild = Client:GetGuild("783625199702245436")
-    local Role = Guild:GetRole("797073333186461698")
+    local Channel = Guild:GetChannel("783731240138047529")
     
-    p(Role.Color)
+    p(Channel:SetTopic(string.Random(5)))
 
-    for i, v in pairs(Client.User) do print(i, v) end
+    --for i, v in pairs(Client.User) do print(i, v) end
   end)
 
   Client:on("Ready", function() Logger:Info("Ready event") end)

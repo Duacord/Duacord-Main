@@ -8,6 +8,7 @@ function Channel:initialize(Data, Guild)
 
     self.Id = Data.id
     self.Type = Data.type
+    self.Guild_id = Data.guild_id
     self.Position = Data.position
     self.Permission_overwrites = Data.permission_overwrites
     self.Name = Data.name
@@ -48,23 +49,7 @@ function Channel:Edit(Data, AuditReason)
     return Response.code == 200, Body.message
 end
 
-function Channel:SetTopic(Name, AuditReason)
-    return self:Edit({topic = Name})
-end
 
-function Channel:SetName(Name, AuditReason)
-    return self:Edit({name = Name})
-end
-
-function Channel:Send(Data)
-    local Response, Body = self.Guild.Client.API:Request(
-        "POST",
-        HttpConstant.BASEURL .. string.format(HttpConstant.EndPoints.CHANNEL_MESSAGES, self.Id),
-        Data
-    )
-
-    return Response.code == 200, Body.message
-end
 
 
 return Channel 
