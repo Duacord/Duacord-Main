@@ -18,6 +18,8 @@ function ParseSettings(Settings)
 end
 
 function Client:initialize()
+    
+
     self.Classes = {
         Client = {
             EventHandler = Import("ga.duacord.duacord.Client.EventHandler"),
@@ -48,6 +50,7 @@ function Client:Run(Token, TokenType, Settings)
     self.Gateway = Gateway:new(self)
     self.Settings = ParseSettings(Settings or {})
     self.Logger = Logger:new({Debug = self.Settings.Debug})
+    self.Logger:Info("Duacord discord library")
     self.Guilds = {}
 
     coroutine.wrap(function()

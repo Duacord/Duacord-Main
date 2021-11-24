@@ -6,6 +6,10 @@ local HttpConstant = Import("ga.duacord.duacord.Constants.HTTP")
 function Role:initialize(Data, Guild)
     self.Guild = Guild
 
+    self:Update(Data)
+end
+
+function Role:Update(Data)
     self.Id = Data.id
     self.Name = Data.name
     self.Color = Data.color
@@ -17,7 +21,6 @@ function Role:initialize(Data, Guild)
     self.Managed = Data.managed
     self.Mentionable = Data.mentionable
     self.Tags = Data.tags
-
 end
 
 function Role:Edit(Data, AuditReason)

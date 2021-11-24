@@ -11,6 +11,26 @@ function Guild:initialize(Data, Client)
     local Member = self.Client.Classes.Classes.Role
     local Channel = self.Client.Classes.Classes.Channel
 
+    self:Update(Data)
+
+    self.Roles = {}
+    for Index, NewRole in pairs(Data.roles) do
+        self.Roles[NewRole.id] = Role:new(NewRole, self)
+    end
+
+    self.Members = {}
+    for Index, NewMember in pairs(Data.members) do
+        self.Members[NewMember.user.id] = Member:new(NewMember, self)
+    end
+
+    self.Channels = {} 
+    for Index, NewChannel in pairs(Data.channels) do
+        self.Channels[NewChannel.id] = Channel:new(NewChannel, self)
+    end
+
+end
+
+function Guild:Update(Data)
     self.Id = Data.id
     self.Name = Data.name
     self.Icon = Data.icon
@@ -54,22 +74,6 @@ function Guild:initialize(Data, Client)
     self.NsfwLevel = Data.nsfw_level
     self.StageInstances = Data.stage_instances
     self.Stickers = Data.stickers
-
-    self.Roles = {}
-    for Index, NewRole in pairs(Data.roles) do
-        self.Roles[NewRole.id] = Role:new(NewRole, self)
-    end
-
-    self.Members = {}
-    for Index, NewMember in pairs(Data.members) do
-        self.Members[NewMember.user.id] = Member:new(NewMember, self)
-    end
-
-    self.Channels = {} 
-    for Index, NewChannel in pairs(Data.channels) do
-        self.Channels[NewChannel.id] = Channel:new(NewChannel, self)
-    end
-
 end
 
 function Guild:GetRole(Id)

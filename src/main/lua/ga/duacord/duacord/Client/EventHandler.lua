@@ -32,14 +32,19 @@ function EventHandler.Events.GUILD_CREATE(Client, Data)
 end
 
 function EventHandler.Events.GUILD_UPDATE(Client, Data)
+    p(Data)
 
+    Client:GetGuild(Data.id):Update(Data)
 end
 
-function EventHandler.Events.TYPING_START(Client, Data)
-    print(table.ToString(Data))
+function EventHandler.Events.GUILD_ROLE_UPDATE(Client, Data)
+   print(table.ToString(Data)) 
+   Client:GetGuild(Data.guild_id):GetRole(Data.role.id):Update(Data.role)
 end
 
 function EventHandler:HandleEvent(Message)
+    self.Gateway.Sequence = Message.s or self.Gateway.Sequence
+
     if Message.op == 0 then
         if self.Events[Message.t] then
             self.Events[Message.t](self.Client, Message.d)
