@@ -50,6 +50,7 @@ function EventHandler:HandleEvent(Message)
             self.Events[Message.t](self.Client, Message.d)
         else
             self.Client.Logger:Warn(string.format("Unhandled gateway event '%s'", Message.t))
+            print(Json.encode(Message.d, {indent = true}))
         end
     elseif Message.op == 10 then
         self.Client.Logger:Info("Received Hello")
