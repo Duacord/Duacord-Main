@@ -8,24 +8,22 @@ function Package.OnInitialize()
 
     Logger:Info("Package loaded!")
 
-    Client:on("Ready", function()
+    Client:on("Loaded", function()
         local Guild = Client:GetGuild("783625199702245436")
         local Channel = Guild:GetChannel("783731240138047529")
     
-        p(
-            Channel:Send(
-                {
-                    content = "Hello"
-                }
-            )
-        )
+        ---p(
+        ---    Channel:Send(
+        ---        {
+        ---            content = "Hello"
+        ---        }
+        ---    )
+        ---)
 
     --for i, v in pairs(Client.User) do print(i, v) end
-  end)
+    end)
 
-    Client:on("Ready", function() Logger:Info("Ready event") end)
-
-    Client:Run(Token)
+    Client:Run(Token, {Debug = true})
 
 end
 

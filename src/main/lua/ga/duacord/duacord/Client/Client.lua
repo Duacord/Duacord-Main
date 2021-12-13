@@ -41,8 +41,12 @@ function Client:initialize()
     }
 end
 
-function Client:Run(Token, TokenType, Settings)
-    local ConnectionToken = (TokenType or "Bot ") .. Token
+function Role.meta:__tostring()
+    return "Client: " .. self.Id
+end
+
+function Client:Run(Token, Settings)
+    local ConnectionToken = ("Bot ") .. Token
     
     self.Token = ConnectionToken
     self.API = API:new(self)

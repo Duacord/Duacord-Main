@@ -35,7 +35,7 @@ function Gateway:Connect()
 
     local Response, Read, Write = GetConnection(self.SocketData.url, "/?v=9&encoding=json")
 
-    self.SocketConnection = {Response = Response, Read = Read, Write = Write}
+    self.SocketConnection = {--[[Response = Response, ]]Read = Read, Write = Write}
 
     self.HeartInfo.SendHeartBeat = function()
         self.SocketConnection.Write(
@@ -92,7 +92,6 @@ function Gateway:Connect()
 
             local Decoded = Json.decode(Message.payload)
 
-            --p(Decoded)
             self.EventHandler:HandleEvent(Decoded)
 
             if Decoded.op == 10 and not self.HeartSpeed then

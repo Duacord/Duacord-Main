@@ -1,13 +1,31 @@
 local Role = Class:extend()
+local ReMap = Import("ga.duacord.duacord.API.ReMap")
 
 local HttpConstant = Import("ga.duacord.duacord.Constants.HTTP")
 
+Role.ClassMap = {
+    ["Id"] = "id",
+    ["Name"] = "name",
+    ["Color"] = "color",
+    ["Hoist"] = "Hoist",
+    ["Icon"] = "icon",
+    ["UnicodeEmoji"] = "unicode_emoji",
+    ["Position"] = "position",
+    ["Permissions"] = "permissions",
+    ["Managed"] = "managed",
+    ["Mentionable"] = "mentionable",
+    ["Tags"] = "tags",
+}
 
 function Role:initialize(Data, Guild)
     self.Guild = Guild
     self.Client = self.Guild.Client
 
-    self:Update(Data)
+    ReMap(self, Data)
+end
+
+function Role.meta:__tostring()
+    return "Role: " .. self.Id
 end
 
 function Role:Update(Data)

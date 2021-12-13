@@ -1,53 +1,52 @@
 local Guild = Class:extend()
 
 Guild.ClassMap = {
-    self.Id                              = "id"
-    self.Name                            = "name"
-    self.Icon                            = "icon"
-    self.IconHash                        = "icon_hash"
-    self.Splash                          = "splash"
-    self.DiscoverySplash                 = "discovery_splash"
-    self.Owner                           = "owner"
-    self.OwnerId                         = "owner_id"
-    self.Permissions                     = "permissions"
-    self.AfkChannelId                    = "afk_channel_id"
-    self.AfkTimeout                      = "afk_timeout"
-    self.WidgetEnabled                   = "widget_enabled"
-    self.WidgetChannelId                 = "widget_channel_id"
-    self.VerificationLevel               = "verification_level"
-    self.DefaultMessageNotifications     = "default_message_notifications"
-    self.ExplicitContentFilter           = "explicit_content_filter"
-    self.Emojis                          = "emojis"
-    self.Features                        = "features"
-    self.MfaLevel                        = "mfa_level"
-    self.SystemChannelId                 = "system_channel_id"
-    self.SystemChannelFlags              = "system_channel_flags"
-    self.RulesChannelId                  = "rules_channel_id"
-    self.JoinedAt                        = "joined_at"
-    self.Large                           = "large"
-    self.Unavailable                     = "unavailable"
-    self.MemberCount                     = "member_count"
-    self.VoiceStates                     = "voice_states"
-    self.Threads                         = "threads"
-    self.Presences                       = "presences"
-    self.MaxPresences                    = "max_presences"
-    self.MaxMembers                      = "max_members"
-    self.VanityUrlCode                   = "vanity_url_code"
-    self.Description                     = "description"
-    self.Banner                          = "banner"
-    self.PremiumTier                     = "premium_tier"
-    self.PremiumSubscriptionCount        = "premium_subscription_count"
-    self.PreferredLocale                 = "preferred_locale"
-    self.PublicUpdatesChannelId          = "public_updates_channel_id"
-    self.MaxVideoChannelUsers            = "max_video_channel_users"
-    self.WelcomeScreen                   = "welcome_screen"
-    self.NsfwLevel                       = "nsfw_level"
-    self.StageInstances                  = "stage_instances"
-    self.Stickers                        = "stickers"
+    ["Id"]                              = "id",
+    ["Name"]                            = "name",
+    ["Icon"]                            = "icon",
+    ["IconHash"]                        = "icon_hash",
+    ["Splash"]                          = "splash",
+    ["DiscoverySplash"]                 = "discovery_splash",
+    ["Owner"]                           = "owner",
+    ["OwnerId"]                         = "owner_id",
+    ["Permissions"]                     = "permissions",
+    ["AfkChannelId"]                    = "afk_channel_id",
+    ["AfkTimeout"]                      = "afk_timeout",
+    ["WidgetEnabled"]                   = "widget_enabled",
+    ["WidgetChannelId"]                 = "widget_channel_id",
+    ["VerificationLevel"]               = "verification_level",
+    ["DefaultMessageNotifications"]     = "default_message_notifications",
+    ["ExplicitContentFilter"]           = "explicit_content_filter",
+    ["Emojis"]                          = "emojis",
+    ["Features"]                        = "features",
+    ["MfaLevel"]                        = "mfa_level",
+    ["SystemChannelId"]                 = "system_channel_id",
+    ["SystemChannelFlags"]              = "system_channel_flags",
+    ["RulesChannelId"]                  = "rules_channel_id",
+    ["JoinedAt"]                        = "joined_at",
+    ["Large"]                           = "large",
+    ["Unavailable"]                     = "unavailable",
+    ["MemberCount"]                     = "member_count",
+    ["VoiceStates"]                     = "voice_states",
+    ["Threads"]                         = "threads",
+    ["Presences"]                       = "presences",
+    ["MaxPresences"]                    = "max_presences",
+    ["MaxMembers"]                      = "max_members",
+    ["VanityUrlCode"]                   = "vanity_url_code",
+    ["Description"]                     = "description",
+    ["Banner"]                          = "banner",
+    ["PremiumTier"]                     = "premium_tier",
+    ["PremiumSubscriptionCount"]        = "premium_subscription_count",
+    ["PreferredLocale"]                 = "preferred_locale",
+    ["PublicUpdatesChannelId"]          = "public_updates_channel_id",
+    ["MaxVideoChannelUsers"]            = "max_video_channel_users",
+    ["WelcomeScreen"]                   = "welcome_screen",
+    ["NsfwLevel"]                       = "nsfw_level",
+    ["StageInstances"]                  = "stage_instances",
+    ["Stickers"]                        = "stickers",
 }
 
 function Guild:initialize(Data, Client)
-    p(self.ClassMap)
 
     self.Client = Client
 
@@ -55,7 +54,11 @@ function Guild:initialize(Data, Client)
     local Member = self.Client.Classes.Classes.Role
     local Channel = self.Client.Classes.Classes.Channel
 
-    self:Update(Data)
+    --self:Update(Data)
+
+    Import("ga.duacord.duacord.API.ReMap")(self, Data)
+    p(tostring(self))
+    p("Guild Loaded???")
 
     self.Roles = {}
     for Index, NewRole in pairs(Data.roles) do
@@ -74,50 +77,8 @@ function Guild:initialize(Data, Client)
 
 end
 
-function Guild:Update(Data)
-    self.Id = Data.id
-    self.Name = Data.name
-    self.Icon = Data.icon
-    self.IconHash = Data.icon_hash
-    self.Splash = Data.Splash
-    self.DiscoverySplash = Data.discovery_splash
-    self.Owner = Data.owner
-    self.OwnerId = Data.owner_id
-    self.Permissions = Data.permissions
-    self.AfkChannelId = Data.afk_channel_id
-    self.AfkTimeout = Data.afk_timeout
-    self.WidgetEnabled = Data.widget_enabled
-    self.WidgetChannelId = Data.widget_channel_id
-    self.VerificationLevel = Data.verification_level
-    self.DefaultMessageNotifications = Data.default_message_notifications
-    self.ExplicitContentFilter = Data.explicit_content_filter
-    self.Emojis = Data.emojis
-    self.Features = Data.features
-    self.MfaLevel = Data.mfa_level
-    self.SystemChannelId = Data.system_channel_id
-    self.SystemChannelFlags = Data.system_channel_flags
-    self.RulesChannelId = Data.rules_channel_id
-    self.JoinedAt = Data.joined_at
-    self.Large = Data.large
-    self.Unavailable = Data.unavailable
-    self.MemberCount = Data.member_count
-    self.VoiceStates = Data.voice_states
-    self.Threads = Data.threads
-    self.Presences = Data.presences
-    self.MaxPresences = Data.max_presences
-    self.MaxMembers = Data.max_members
-    self.VanityUrlCode = Data.vanity_url_code
-    self.Description = Data.description
-    self.Banner = Data.banner
-    self.PremiumTier = Data.premium_tier
-    self.PremiumSubscriptionCount = Data.premium_subscription_count
-    self.PreferredLocale = Data.preferred_locale
-    self.PublicUpdatesChannelId = Data.public_updates_channel_id
-    self.MaxVideoChannelUsers = Data.max_video_channel_users
-    self.WelcomeScreen = Data.welcome_screen
-    self.NsfwLevel = Data.nsfw_level
-    self.StageInstances = Data.stage_instances
-    self.Stickers = Data.stickers
+function Guild.meta:__tostring()
+    return "Guild: " .. self.Id .. " (" .. self.Name .. ")"
 end
 
 function Guild:GetRole(Id)

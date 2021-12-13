@@ -1,4 +1,5 @@
 local EventHandler = Class:extend()
+local ReMap = Import("ga.duacord.duacord.API.ReMap")
 
 function EventHandler:initialize(Gateway)
 
@@ -14,6 +15,8 @@ function EventHandler.Events.READY(Client, Data)
     Client.GuildCount = #Data.guilds
     Client.User = Client.Classes.Classes.User:new(Data.user)
     Client.SessionId = Data.session_id
+
+    Client:emit("Ready")
 end
 
 function EventHandler.Events.GUILD_CREATE(Client, Data)
@@ -27,19 +30,21 @@ function EventHandler.Events.GUILD_CREATE(Client, Data)
     end
     
     if GuildCount == Client.GuildCount then
-        Client:emit("Ready")
+        Client:emit("Loaded")
     end
 end
 
 function EventHandler.Events.GUILD_UPDATE(Client, Data)
     p(Data)
 
-    Client:GetGuild(Data.id):Update(Data)
+    ReMap(Client:GetGuild(Data.id), Data)
+    Client:emit("GuildUpdate")
 end
 
 function EventHandler.Events.GUILD_ROLE_UPDATE(Client, Data)
    print(table.ToString(Data)) 
    Client:GetGuild(Data.guild_id):GetRole(Data.role.id):Update(Data.role)
+   Client:emit("RoleUpdate", Client:GetGuild(Data.guild_id):GetRole(Data.role.id))
 end
 
 function EventHandler:HandleEvent(Message)
