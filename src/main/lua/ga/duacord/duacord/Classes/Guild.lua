@@ -1,9 +1,53 @@
 local Guild = Class:extend()
 
-
-
+Guild.ClassMap = {
+    self.Id                              = "id"
+    self.Name                            = "name"
+    self.Icon                            = "icon"
+    self.IconHash                        = "icon_hash"
+    self.Splash                          = "splash"
+    self.DiscoverySplash                 = "discovery_splash"
+    self.Owner                           = "owner"
+    self.OwnerId                         = "owner_id"
+    self.Permissions                     = "permissions"
+    self.AfkChannelId                    = "afk_channel_id"
+    self.AfkTimeout                      = "afk_timeout"
+    self.WidgetEnabled                   = "widget_enabled"
+    self.WidgetChannelId                 = "widget_channel_id"
+    self.VerificationLevel               = "verification_level"
+    self.DefaultMessageNotifications     = "default_message_notifications"
+    self.ExplicitContentFilter           = "explicit_content_filter"
+    self.Emojis                          = "emojis"
+    self.Features                        = "features"
+    self.MfaLevel                        = "mfa_level"
+    self.SystemChannelId                 = "system_channel_id"
+    self.SystemChannelFlags              = "system_channel_flags"
+    self.RulesChannelId                  = "rules_channel_id"
+    self.JoinedAt                        = "joined_at"
+    self.Large                           = "large"
+    self.Unavailable                     = "unavailable"
+    self.MemberCount                     = "member_count"
+    self.VoiceStates                     = "voice_states"
+    self.Threads                         = "threads"
+    self.Presences                       = "presences"
+    self.MaxPresences                    = "max_presences"
+    self.MaxMembers                      = "max_members"
+    self.VanityUrlCode                   = "vanity_url_code"
+    self.Description                     = "description"
+    self.Banner                          = "banner"
+    self.PremiumTier                     = "premium_tier"
+    self.PremiumSubscriptionCount        = "premium_subscription_count"
+    self.PreferredLocale                 = "preferred_locale"
+    self.PublicUpdatesChannelId          = "public_updates_channel_id"
+    self.MaxVideoChannelUsers            = "max_video_channel_users"
+    self.WelcomeScreen                   = "welcome_screen"
+    self.NsfwLevel                       = "nsfw_level"
+    self.StageInstances                  = "stage_instances"
+    self.Stickers                        = "stickers"
+}
 
 function Guild:initialize(Data, Client)
+    p(self.ClassMap)
 
     self.Client = Client
 

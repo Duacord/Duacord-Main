@@ -5,6 +5,7 @@ local HttpConstant = Import("ga.duacord.duacord.Constants.HTTP")
 
 function Role:initialize(Data, Guild)
     self.Guild = Guild
+    self.Client = self.Guild.Client
 
     self:Update(Data)
 end
