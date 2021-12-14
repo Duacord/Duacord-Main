@@ -51,14 +51,13 @@ function Guild:initialize(Data, Client)
     self.Client = Client
 
     local Role = self.Client.Classes.Classes.Role
-    local Member = self.Client.Classes.Classes.Role
+    local Member = self.Client.Classes.Classes.Member
     local Channel = self.Client.Classes.Classes.Channel
 
     --self:Update(Data)
 
     Import("ga.duacord.duacord.API.ReMap")(self, Data)
-    p(tostring(self))
-    p("Guild Loaded???")
+
 
     self.Roles = {}
     for Index, NewRole in pairs(Data.roles) do

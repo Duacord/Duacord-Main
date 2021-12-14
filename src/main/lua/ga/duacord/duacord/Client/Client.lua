@@ -41,8 +41,8 @@ function Client:initialize()
     }
 end
 
-function Role.meta:__tostring()
-    return "Client: " .. self.Id
+function Client.meta:__tostring()
+    return "Client: " .. (self.Id or "UnKnown")
 end
 
 function Client:Run(Token, Settings)

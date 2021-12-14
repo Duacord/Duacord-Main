@@ -21,7 +21,7 @@ function Role:initialize(Data, Guild)
     self.Guild = Guild
     self.Client = self.Guild.Client
 
-    ReMap(self, Data)
+    ReMap(self, Data, false)
 end
 
 function Role.meta:__tostring()

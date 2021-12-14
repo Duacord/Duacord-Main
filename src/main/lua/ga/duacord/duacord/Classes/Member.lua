@@ -16,7 +16,7 @@ function Member:initialize(Data, Guild)
     self.Pending = Data.pending
     self.Permissions = Data.permissions
 
-    self.User = Client.Classes.Classes.User:new(Data.user, Member)
+    self.User = self.Client.Classes.Classes.User:new(Data.user, Member)
 
     self.Roles = {}
     for Index, RoleId in pairs(Data.roles) do

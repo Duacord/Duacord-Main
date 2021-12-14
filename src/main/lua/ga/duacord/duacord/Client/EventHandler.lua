@@ -11,6 +11,7 @@ end
 EventHandler.Events = {}
 
 function EventHandler.Events.READY(Client, Data)
+    p(Data)
     Client.Logger:Info("Received Ready")
     Client.GuildCount = #Data.guilds
     Client.User = Client.Classes.Classes.User:new(Data.user)
