@@ -1,38 +1,42 @@
 local Channel = Class:extend()
-
+local ReMap = Import("ga.duacord.duacord.API.ReMap")
 local HttpConstant = Import("ga.duacord.duacord.Constants.HTTP")
 
+Channel.ClassMap = {
+    ["Id"]                              = "id",
+    ["Type"]                            = "type",
+    ["Position"]                        = "position",
+    ["PermissionOverwrites"]            = "permission_overwrites",
+    ["Name"]                            = "name",
+    ["Topic"]                           = "topic",
+    ["Nsfw"]                            = "nsfw",
+    ["LastMessageId"]                   = "last_message_id",
+    ["Bitrate"]                         = "bitrate",
+    ["UserLimit"]                       = "user_limit",
+    ["RateLimitPerUser"]                = "rate_limit_per_user",
+    ["Recipients"]                      = "recipients",
+    ["Icon"]                            = "icon",
+    ["OwnerId"]                         = "owner_id",
+    ["ApplicationId"]                   = "application_id",
+    ["ParentId"]                        = "parent_id",
+    ["LastPinTimestamp"]                = "last_pin_timestamp",
+    ["RtcRegion"]                       = "rtc_region",
+    ["VideoQualityMode"]                = "video_quality_mode",
+    ["MessageCount"]                    = "message_count",
+    ["MemberCount"]                     = "member_count",
+    ["ThreadMetadata"]                  = "thread_metadata",
+    ["Member"]                          = "member",
+    ["DefaultAutoArchiveDuration"]      = "default_auto_archive_duration",
+    ["Permissions"]                     = "permissions",
+}
 
 function Channel:initialize(Data, Guild)
     self.Guild = Guild
+    ReMap(self, Data)
 
-    self.Id = Data.id
-    self.Type = Data.type
-    self.Position = Data.position
-    self.Permission_overwrites = Data.permission_overwrites
-    self.Name = Data.name
-    self.Topic = Data.topic
-    self.Nsfw = Data.nsfw
-    self.Last_message_id = Data.last_message_id
-    self.Bitrate = Data.bitrate
-    self.User_limit = Data.user_limit
-    self.Rate_limit_per_user = Data.rate_limit_per_user
-    self.Recipients = Data.recipients
-    self.Icon = Data.icon
-    self.Owner_id = Data.owner_id
-    self.Application_id = Data.application_id
-    self.Parent_id = Data.parent_id
-    self.Last_pin_timestamp = Data.last_pin_timestamp
-    self.Rtc_region = Data.rtc_region
-    self.Video_quality_mode = Data.video_quality_mode
-    self.Message_count = Data.message_count
-    self.Member_count = Data.member_count
-    self.Thread_metadata = Data.thread_metadata
-    self.Member = Data.member
-    self.Default_auto_archive_duration = Data.default_auto_archive_duration
-    self.Permissions = Data.permissions
 
-    --p(self)
+    
+
 end
 
 function Channel:Edit(Data, AuditReason)

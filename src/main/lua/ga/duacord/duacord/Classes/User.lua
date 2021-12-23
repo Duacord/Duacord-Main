@@ -1,26 +1,29 @@
 local User = Class:extend()
+local ReMap = Import("ga.duacord.duacord.API.ReMap")
 
 local HttpConstant = Import("ga.duacord.duacord.Constants.HTTP")
 
+User.ClassMap = {
+    ["Id"]              = "id",
+    ["Username"]        = "username",
+    ["Discriminator"]   = "discriminator",
+    ["Avatar"]          = "avatar",
+    ["Bot"]             = "bot",
+    ["System"]          = "system",
+    ["MfaEnabled"]      = "mfa_enabled",
+    ["Banner"]          = "banner",
+    ["AccentColor"]     = "accent_color",
+    ["Locale"]          = "locale",
+    ["Flags"]           = "flags",
+    ["PremiumType"]     = "premium_type",
+    ["PublicFlags"]     = "public_flags",
+}
 
 function User:initialize(Data, Member)
     self.Member = Member
+    self.Client = self.Member.Client
 
-    self.Id = Data.id
-    self.Username = Data.username
-    self.Discriminator = Data.discriminator
-    self.Avatar = Data.avatar
-    self.Bot = Data.bot
-    self.System = Data.system
-    self.MfaEnabled = Data.mfa_enabled
-    self.Banner = Data.banner
-    self.AccentColor = Data.accent_color
-    self.Locale = Data.locale
-    self.Flags = Data.flags
-    self.PremiumType = Data.premium_type
-    self.PublicFlags = Data.public_flags
-
-
+    ReMap(self, Data)
 end
 
 function User:Edit(Data, AuditReason)

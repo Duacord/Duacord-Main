@@ -42,7 +42,7 @@ function Client:initialize()
 end
 
 function Client.meta:__tostring()
-    return "Client: " .. (self.Id or "UnKnown")
+    return "Client: " .. ((self.User or {}).Id or "Client is loading") .. string.format(" (%s)", (self.User or {}).Name or "Client is loading")
 end
 
 function Client:Run(Token, Settings)
@@ -60,10 +60,6 @@ function Client:Run(Token, Settings)
     coroutine.wrap(function()
         self.Gateway:Connect()
     end)()
-
-    --print(Import("ga.duacord.duacord.Libraries.TableToString")(self))
-
-
 
 end
 

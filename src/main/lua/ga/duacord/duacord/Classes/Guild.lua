@@ -54,7 +54,6 @@ function Guild:initialize(Data, Client)
     local Member = self.Client.Classes.Classes.Member
     local Channel = self.Client.Classes.Classes.Channel
 
-    --self:Update(Data)
 
     Import("ga.duacord.duacord.API.ReMap")(self, Data)
 

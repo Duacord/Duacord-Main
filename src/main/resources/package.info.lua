@@ -21,8 +21,8 @@ return {
     },
 
     Contact = {
-        Website = "http://cubic-inc.nl", -- Homepage
-        Source = "https://github.com/Dot-lua/Dotter-Project-Template", -- Github repro
+        Website = "http://duacord.ga", -- Homepage
+        Source = "https://github.com/DuaCord/DuaCord-Main", -- Github repro
         Socials = {}
     },
 

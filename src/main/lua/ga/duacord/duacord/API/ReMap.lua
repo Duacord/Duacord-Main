@@ -14,6 +14,5 @@ return function (Class, Data, DoPrint)
         Class[Index] = Data[MapName] or Class[Index]
     end
 
-    Client.Logger:Debug("Remapped " .. tostring(Class))
 
 end

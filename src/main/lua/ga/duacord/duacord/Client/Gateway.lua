@@ -9,7 +9,7 @@ local HttpConstant = Import("ga.duacord.duacord.Constants.HTTP")
 function Gateway:initialize(GatewayClient)
     self.Client = GatewayClient
     self.EventHandler = EventHandler:new(self)
-    self.HeartInfo = {}
+    self.HeartInfo = {Returned = true}
 end
 
 function GetConnection(Url, Path)
@@ -38,6 +38,10 @@ function Gateway:Connect()
     self.SocketConnection = {--[[Response = Response, ]]Read = Read, Write = Write}
 
     self.HeartInfo.SendHeartBeat = function()
+        if self.HeartInfo.Returned == false then
+            self.Client.Logger:Warn("Connection might be ghosted (" .. self.Sequence .. ")")
+            
+        end
         self.SocketConnection.Write(
             {
                payload = Json.encode(
@@ -49,6 +53,9 @@ function Gateway:Connect()
             }
             
         )
+
+
+        self.HeartInfo.Returned = false
     end
 
     self.HeartInfo.Heart = coroutine.wrap(function()

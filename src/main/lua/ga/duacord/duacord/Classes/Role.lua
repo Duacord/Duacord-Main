@@ -25,7 +25,7 @@ function Role:initialize(Data, Guild)
 end
 
 function Role.meta:__tostring()
-    return "Role: " .. self.Id
+    return "Role: " .. self.Id .. " (" .. self.Name .. ")"
 end
 
 function Role:Update(Data)
