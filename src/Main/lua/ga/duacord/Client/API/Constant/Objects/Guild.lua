@@ -1,0 +1,28 @@
+local Guild = {}
+
+Guild.Guilds = "/guilds"
+Guild.Guild = "/guilds/%s"
+Guild.Preview = "/guilds/%s/preview"
+Guild.Channels = "/guilds/%s/channels"
+Guild.ActiveThreads = "/guilds/%s/threads/active"
+Guild.Member = "/guilds/%s/members/%s"
+Guild.Members = "/guilds/%s/members"
+Guild.MemberSearch = "/guilds/%s/members/search"
+Guild.Me = "/guilds/%s/members/@me"
+Guild.MemberRole = "/guilds/%s/members/%s/roles/%s"
+Guild.Bans = "/guilds/%s/bans"
+Guild.Ban = "/guilds/%s/bans/%s"
+Guild.Roles = "/guilds/{guild.id}/roles"
+Guild.Role = "/guilds/{guild.id}/roles/{role.id}"
+Guild.Prune = "/guilds/{guild.id}/prune"
+Guild.Regions = "/guilds/{guild.id}/regions"
+Guild.Invites = "/guilds/{guild.id}/invites"
+Guild.Integrations = "/guilds/{guild.id}/integrations"
+Guild.Integration = "/guilds/{guild.id}/integrations/{integration.id}"
+Guild.WidgetSettings = "/guilds/{guild.id}/widget"
+Guild.Widget = "/guilds/{guild.id}/widget.json"
+Guild.VanityUrl = "/guilds/{guild.id}/vanity-url"
+Guild.WelcomeScreen = "/guilds/{guild.id}/welcome-screen"
+Guild.VoiceState = "/guilds/{guild.id}/voice-states/{user.id}"
+
+return Guild
