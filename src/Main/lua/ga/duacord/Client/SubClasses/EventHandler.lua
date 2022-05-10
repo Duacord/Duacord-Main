@@ -5,6 +5,14 @@ local GatewayOpcodes = Constant.Gateway.Opcodes
 
 local GuildClass = Import("ga.duacord.Client.Objects.Guild")
 
+local function CountTable(ToCount)
+    local Amount = 0
+    for _, _ in pairs(ToCount) do
+        Amount = Amount + 1
+    end
+    return Amount
+end
+
 function EventHandler:initialize(Client, Shard)
     self.Client = Client
     self.Shard = Shard
@@ -32,11 +40,12 @@ function EventHandler:HandleMessage(Message)
         self.Shard:Reconnect()
     elseif Opcode == GatewayOpcodes.InvalidSession then
         TypeWriter.Logger.Info("Discord has invalidated the session")
+        self.Shard.SessionId = nil
         self.Shard:Reconnect()
     elseif Opcode == GatewayOpcodes.Hello then
         TypeWriter.Logger.Info("Shard " .. self.Shard.Id .. ": Received HELLO")
         self.Shard.HeartbeatInterval = Data.heartbeat_interval
-        self.Shard:Authenticate(true)
+        self.Shard:Authenticate(self.Shard.SessionId == nil)
         self.Shard:StartHeart()
         self.Client:Emit("Hello")
     elseif Opcode == GatewayOpcodes.HeartbeatAck then
@@ -47,7 +56,10 @@ end
 
 function EventHandler:HandleDispatch(Data, Event)
     print(Event)
-    p(Data)
+    --p(Data)
+    --for Index, Value in pairs(Data) do
+    --    print(Index, Value)
+    --end
     --print(require("json").encode(Data, {indent = true}))
     print()
 
@@ -64,6 +76,17 @@ function EventHandler.DispatchEvents.READY(Data, Client, Shard)
     TypeWriter.Logger.Info("Shard " .. Shard.Id .. ": Received READY")
     TypeWriter.Logger.Info("Shard " .. Shard.Id .. ": Logged in as " .. Data.user.username .. "#" .. Data.user.discriminator)
     Shard.SessionId = Data.session_id
+
+    for Index, Guild in pairs(Data.guilds) do
+        Shard.ExpectedGuilds[Guild.id] = true
+    end
+
+    Client:Emit("Ready")
+end
+
+function EventHandler.DispatchEvents.RESUMED(Data, Client, Shard)
+    TypeWriter.Logger.Info("Shard " .. Shard.Id .. ": Received RESUMED")
+    Client:Emit("Resumed", Shard.Id)
 end
 
 --Application Command Permissions Update	application command permission was updated
@@ -83,6 +106,12 @@ function EventHandler.DispatchEvents.GUILD_CREATE(Data, Client, Shard)
     Client.API:InsertTable(Guild, Shard.Client.API:PatchTable(Data))
     Shard.Assinged.Guilds[Guild.Id] = true
     Client.Guilds[Guild.Id] = Guild
+    Shard.ExpectedGuilds[Guild.Id] = nil
+    if CountTable(Shard.ExpectedGuilds) == 0 then
+        Shard:Emit("GuildsLoaded")
+    else
+        Client:Emit("GuildCreate", Guild)
+    end
 end
 
 --Guild Update	guild was updated
