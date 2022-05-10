@@ -1,12 +1,16 @@
 local Member = Class:extend()
 
-function Member:initialize(Client, Guild)
+--#region Class methods
+function Member:initialize(Client)
     self.Client = Client
-    self.Guild = Guild
 end
 
-function Member:OnInsert()
-    
+function Member:BeforeInsert(Data)
+    --p(Data)
 end
+function Member:OnInsert(Data)
+    --for Index, Value in pairs(self) do print(Index, Value) end
+end
+--#endregion
 
 return Member
