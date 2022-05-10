@@ -1,4 +1,4 @@
-local Shard = Class:extend()
+local Shard = Import("ga.corebyte.BetterEmitter"):extend()
 
 local Constant = Import("ga.duacord.Client.API.Constant")
 
@@ -15,6 +15,8 @@ function Shard:initialize(Client, Id)
 
     self.EventHandler = EventHandler:new(self.Client, self)
 
+    self.ExpectedGuilds = {}
+
     self.Assinged = {}
     self.Assinged.Guilds = {}
 end
@@ -27,11 +29,6 @@ end
 
 function Shard:Connect()
     TypeWriter.Logger.Info("Shard " .. self.Id .. ": Connecting to " .. self.Client.GatewayInfo.Url)
-
-    coroutine.wrap(function()
-        Sleep(5000)
-        self:Reconnect()
-    end)()
 
     local Response, Read, Write = ConnectWebsocket(
         self.Client.GatewayInfo.Url,
@@ -80,7 +77,8 @@ function Shard:Disconnect()
 end
 
 function Shard:Reconnect()
-    p(self.SessionId)
+    self:Disconnect()
+    self:Connect()
 end
 
 function Shard:StartHeart()
@@ -155,7 +153,14 @@ function Shard:Authenticate(Identify)
             }
         )
     elseif Identify == false then -- reconnect
-
+        self:Send(
+            Constant.Gateway.Opcodes.Resume,
+            {
+                token = self.Client.Token,
+                session_id = self.SessionId,
+                seq = self.LastSequence,
+            }
+        )
     end
 end
 

@@ -42,9 +42,23 @@ function Client:Run(Token)
             TypeWriter.Logger.Info(self.GatewayInfo.SessionStartLimit.Remaining .. "/" .. self.GatewayInfo.SessionStartLimit.Total .. " starts remaining")
             TypeWriter.Logger.Info("Starting " .. self.GatewayInfo.Shards ..  " shard(s)")
 
+            local ShardsReady = 0
+
             for ShardId = 1, self.GatewayInfo.Shards do
                 local Shard = Shard:new(self, ShardId - 1)
                 table.insert(self.Shards, Shard)
+
+                Shard:Once(
+                    "GuildsLoaded",
+                    function()
+                        TypeWriter.Logger.Info("Shard " .. Shard.Id .. ": fully loaded")
+                        ShardsReady = ShardsReady + 1
+                        if ShardsReady == self.GatewayInfo.Shards then
+                            TypeWriter.Logger.Info("Fully loaded")
+                            self:Emit("Loaded")
+                        end
+                    end
+                )
 
                 coroutine.wrap(Shard.Connect)(Shard)
             end
