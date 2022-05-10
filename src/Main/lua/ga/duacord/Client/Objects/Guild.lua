@@ -7,6 +7,10 @@ function Guild:initialize(Client)
     self.Client = Client
 end
 
+function Guild:BeforeInsert(Data)
+    p(Data)
+end
+
 function Guild:OnInsert()
     local Members = self.Members
     self.Members = {}

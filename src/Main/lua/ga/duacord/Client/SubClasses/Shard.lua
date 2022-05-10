@@ -28,6 +28,11 @@ end
 function Shard:Connect()
     TypeWriter.Logger.Info("Shard " .. self.Id .. ": Connecting to " .. self.Client.GatewayInfo.Url)
 
+    coroutine.wrap(function()
+        Sleep(5000)
+        self:Reconnect()
+    end)()
+
     local Response, Read, Write = ConnectWebsocket(
         self.Client.GatewayInfo.Url,
         string.format("/?v=%s&encoding=json", Constant.Discord.Version)
@@ -72,6 +77,10 @@ function Shard:Disconnect()
     self.Write()
     self.Read = nil
     self.Write = nil
+end
+
+function Shard:Reconnect()
+    p(self.SessionId)
 end
 
 function Shard:StartHeart()
