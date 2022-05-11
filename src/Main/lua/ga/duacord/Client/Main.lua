@@ -51,7 +51,7 @@ function Client:Run(Token)
                 Shard:Once(
                     "GuildsLoaded",
                     function()
-                        TypeWriter.Logger.Info("Shard " .. Shard.Id .. ": fully loaded")
+                        TypeWriter.Logger.Info("Shard " .. Shard.Id .. ": Fully loaded")
                         ShardsReady = ShardsReady + 1
                         if ShardsReady == self.GatewayInfo.Shards then
                             TypeWriter.Logger.Info("Fully loaded")

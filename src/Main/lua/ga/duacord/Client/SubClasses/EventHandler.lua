@@ -23,7 +23,6 @@ function EventHandler:HandleMessage(Message)
     local Data = Message.d
     local Sequence = Message.s
     local Event = Message.t
-    --p(Opcode, Sequence, Event)
 
     if Sequence ~= nil then
         self.Shard.LastSequence = Sequence
@@ -56,7 +55,7 @@ end
 
 function EventHandler:HandleDispatch(Data, Event)
     print(Event)
-    --p(Data)
+    p(Data)
     --for Index, Value in pairs(Data) do
     --    print(Index, Value)
     --end
