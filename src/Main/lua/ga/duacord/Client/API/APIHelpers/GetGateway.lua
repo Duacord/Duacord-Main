@@ -3,7 +3,7 @@ local GetGateway = {}
 local Constant = Import("ga.duacord.Client.API.Constant")
 
 function GetGateway.Get(API)
-    local _, Data = API:DiscordRequest("GET", Constant.Gateway.Get, nil, nil, false)
+    local Data = API:DiscordRequest("GET", Constant.Gateway.Get, nil, nil, false)
 
     return {
         Url = Data.url,
@@ -11,7 +11,7 @@ function GetGateway.Get(API)
 end
 
 function GetGateway.GetBot(API)
-    local _, Data = API:DiscordRequest("GET", Constant.Gateway.GetBot)
+    local Data = API:DiscordRequest("GET", Constant.Gateway.GetBot)
 
     return {
         Url = Data.url,
