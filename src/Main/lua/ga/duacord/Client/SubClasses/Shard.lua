@@ -56,6 +56,8 @@ function Shard:Connect()
         local Decoded = Json.decode(Message.payload)
         if Decoded ~= nil then
             self.EventHandler:HandleMessage(Decoded)
+        else
+            p(Message)
         end
 
     end

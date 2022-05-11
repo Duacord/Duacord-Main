@@ -89,6 +89,9 @@ function EventHandler.DispatchEvents.RESUMED(Data, Client, Shard)
 end
 
 --Application Command Permissions Update	application command permission was updated
+function EventHandler.DispatchEvents.APPLICATION_COMMAND_PERMISSIONS_UPDATE(Data, Client, Shard)
+    
+end
 --Channel Create	new guild channel created
 --Channel Update	channel was updated
 --Channel Delete	channel was deleted
@@ -99,6 +102,7 @@ end
 --Thread List Sync	sent when gaining access to a channel, contains all active threads in that channel
 --Thread Member Update	thread member for the current user was updated
 --Thread Members Update	some user(s) were added to or removed from a thread
+
 --Guild Create	lazy-load for unavailable guild, guild became available, or user joined a new guild
 function EventHandler.DispatchEvents.GUILD_CREATE(Data, Client, Shard)
     local Guild = GuildClass:new(Client)
@@ -114,7 +118,24 @@ function EventHandler.DispatchEvents.GUILD_CREATE(Data, Client, Shard)
 end
 
 --Guild Update	guild was updated
+function EventHandler.DispatchEvents.GUILD_UPDATE(Data, Client, Shard)
+    local Guild = Client:GetGuild(Data.id)
+    if Guild == nil then return end
+    Client.API:InsertTable(
+        Guild,
+        Client.API:PatchTable(Data)
+    )
+    Client:Emit("GuildUpdate")
+end
+
 --Guild Delete	guild became unavailable, or user left/was removed from a guild
+function EventHandler.DispatchEvents.GUILD_DELETE(Data, Client, Shard)
+    local Guild = Client:GetGuild(Data.id)
+    if Guild == nil then return end
+    --Client.API:RemoveTable(Guild) ill make this soon
+    Client.Guilds[Guild.Id] = nil
+    Client:Emit("GuildDelete", Guild)
+end
 --Guild Ban Add	user was banned from a guild
 --Guild Ban Remove	user was unbanned from a guild
 --Guild Emojis Update	guild emojis were updated
