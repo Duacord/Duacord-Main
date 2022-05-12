@@ -6,7 +6,6 @@ function User:initialize(Client)
 end
 
 function User:BeforeInsert(Data)
-    p(Data)
 end
 --#endregion
 

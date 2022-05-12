@@ -7,7 +7,6 @@ function Role:initialize(Client, Guild)
 end
 
 function Role:BeforeInsert(Data)
-    --p(Data)
 end
 function Role:OnInsert(Data)
     --for Index, Value in pairs(self) do print(Index, Value) end

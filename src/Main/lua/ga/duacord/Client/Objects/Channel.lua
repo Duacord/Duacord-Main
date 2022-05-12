@@ -7,7 +7,6 @@ function Channel:initialize(Client, Parent, ParentType)
 end
 
 function Channel:BeforeInsert(Data)
-    p(Data)
 end
 --#endregion
 
