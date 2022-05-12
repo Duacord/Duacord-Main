@@ -17,6 +17,7 @@ local SuccessCodes = {
     [204] = true
 }
 function API:Request(Method, Endpoint, Data, Auth, Headers)
+    p(Data)
     if Headers == nil then
         Headers = {}
     end
@@ -112,6 +113,20 @@ function API:InsertTable(Original, ToInsert)
     return TableInsert(Original, ToInsert)
 end
 
+--#endregion
+
+--#region Application commands
+function API:BulkOverwriteGlobalApplicationCommands(Data)
+    p(Data)
+    self:DiscordRequest(
+        "PUT",
+        string.format(
+            "/applications/%s/commands",
+            "791927279357657088"--self.Client.User.Id
+        ),
+        Data
+    )
+end
 --#endregion
 
 --#region Objects
