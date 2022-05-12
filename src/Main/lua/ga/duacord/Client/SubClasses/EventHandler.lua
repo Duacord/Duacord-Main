@@ -4,6 +4,7 @@ local Constant = Import("ga.duacord.Client.API.Constant")
 local GatewayOpcodes = Constant.Gateway.Opcodes
 
 local GuildClass = Import("ga.duacord.Client.Objects.Guild")
+local UserClass = Import("ga.duacord.Client.Objects.User")
 
 local function CountTable(ToCount)
     local Amount = 0
@@ -75,6 +76,10 @@ function EventHandler.DispatchEvents.READY(Data, Client, Shard)
     TypeWriter.Logger.Info("Shard " .. Shard.Id .. ": Received READY")
     TypeWriter.Logger.Info("Shard " .. Shard.Id .. ": Logged in as " .. Data.user.username .. "#" .. Data.user.discriminator)
     Shard.SessionId = Data.session_id
+
+    local User = UserClass:new(Client)
+    Client.API:InsertTable(User, Client.API:PatchTable(Data.user))
+    Client.User = User
 
     for Index, Guild in pairs(Data.guilds) do
         Shard.ExpectedGuilds[Guild.id] = true
