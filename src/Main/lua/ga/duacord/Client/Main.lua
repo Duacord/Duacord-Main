@@ -7,6 +7,7 @@ local DefaultSettings = {
     TokenPrefix = "Bot ",
 }
 
+
 local function ParseSettings(Settings) 
     if type(Settings) ~= "table" then
         return DefaultSettings
@@ -19,6 +20,13 @@ local function ParseSettings(Settings)
     return Settings
 end
 
+local function CreateConstructor(Client, Object)
+    return function(Data)
+        local Object = Object:new(Client, Data)
+        return Object
+    end
+end
+
 function Client:initialize(Settings)
     self.Settings = ParseSettings(Settings)
     self.API = API:new(self)
@@ -26,6 +34,11 @@ function Client:initialize(Settings)
     self.Guilds = {}
 
     self.Intents = {}
+
+    -- Constructors
+    Client.Constructors = {}
+    Client.Constructors.SlashCommands = {}
+    Client.Constructors.SlashCommands.Command = CreateConstructor(self, SlashCommand)
 end
 
 function Client:Run(Token)

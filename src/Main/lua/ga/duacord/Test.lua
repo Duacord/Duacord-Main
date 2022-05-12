@@ -10,9 +10,27 @@ Client:On(
     "Loaded",
     function()
         p("Loaded")
-        local Guild = Client:GetGuild("783625199702245436")
-        local Channel = Guild:GetChannel("783731240138047529")
-        --Channel:Send("First message from Lua")
+        local Guild = Client:GetGuild("806963221469724723")
+        local Channel = Guild:GetChannel("953030272151080961")
+        Channel:Send(
+            {
+                Content = "First message from Lua",
+                Components = {
+                    {
+                        type = 1,
+                        components = {
+                            {
+                                type = 2,
+                                style = 1,
+                                label = "Hoi",
+                                custom_id = "werw"
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        )
         print("Done")
     end
 )
