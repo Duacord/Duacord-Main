@@ -2,6 +2,7 @@ local Client = Import("ga.corebyte.BetterEmitter"):extend()
 
 local API = Import("ga.duacord.Client.API")
 local Shard = Import("ga.duacord.Client.SubClasses.Shard")
+local Constructors = Import("ga.duacord.Client.Constructors")
 
 local DefaultSettings = {
     TokenPrefix = "Bot ",
@@ -20,25 +21,23 @@ local function ParseSettings(Settings)
     return Settings
 end
 
-local function CreateConstructor(Client, Object)
-    return function(Data)
-        local Object = Object:new(Client, Data)
-        return Object
-    end
-end
-
 function Client:initialize(Settings)
     self.Settings = ParseSettings(Settings)
     self.API = API:new(self)
     self.Shards = {}
     self.Guilds = {}
+    self.ApplicationCommands = {}
+    self.ApplicationCommands.Global = {}
+    self.ApplicationCommands.Guild = {}
 
     self.Intents = {}
 
     -- Constructors
+    local CreateConstructor = Constructors.CreateConstructor
     Client.Constructors = {}
     Client.Constructors.SlashCommands = {}
-    Client.Constructors.SlashCommands.Command = CreateConstructor(self, SlashCommand)
+    Client.Constructors.SlashCommands.Command = CreateConstructor(self, Constructors.SlashCommands.Command)
+    Client.Constructors.SlashCommands.Option = CreateConstructor(self, Constructors.SlashCommands.Option)
 end
 
 function Client:Run(Token)
@@ -77,6 +76,41 @@ function Client:Run(Token)
             end
         end
     )()
+end
+
+function Client:RegisterApplicationCommand(CommandData, Guild)
+    if Guild then
+        if self.ApplicationCommands.Guild[CommandData.type] == nil then
+            self.ApplicationCommands.Guild[CommandData.type] = {}
+        end
+        self.ApplicationCommands.Guild[CommandData.type][CommandData.name] = CommandData
+    else
+        if self.ApplicationCommands.Global[CommandData.type] == nil then
+            self.ApplicationCommands.Global[CommandData.type] = {}
+        end
+        self.ApplicationCommands.Global[CommandData.type][CommandData.name] = CommandData
+    end
+    
+end
+
+function Client:SyncApplicationCommands()
+    self:SyncGlobalApplicationCommands()
+    self:SyncGuildApplicationCommands()
+end
+
+function Client:SyncGlobalApplicationCommands()
+    local SendData = {}
+    for CommandType, ApplicationCommandList in pairs(self.ApplicationCommands.Global) do
+        for CommandName, CommandData in pairs(ApplicationCommandList) do
+            table.insert(SendData, CommandData)
+        end
+    end
+    --p(SendData)
+    self.API:BulkOverwriteGlobalApplicationCommands(SendData)
+end
+
+function Client:SyncGuildApplicationCommands()
+    
 end
 
 function Client:GetGuild(Id)
