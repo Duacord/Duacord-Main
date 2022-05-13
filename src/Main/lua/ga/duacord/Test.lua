@@ -4,6 +4,7 @@ local Client = Import("ga.duacord"):new(
 
 local Command = Client.Constructors.SlashCommands.Command()
 Command:SetName("Hello")
+Command:SetDescription("Hello command")
 Command:SetCallback(function ()
     
 end)

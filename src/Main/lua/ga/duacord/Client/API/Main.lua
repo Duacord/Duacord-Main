@@ -17,7 +17,6 @@ local SuccessCodes = {
     [204] = true
 }
 function API:Request(Method, Endpoint, Data, Auth, Headers)
-    p(Data)
     if Headers == nil then
         Headers = {}
     end

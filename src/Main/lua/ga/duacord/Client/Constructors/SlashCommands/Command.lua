@@ -9,8 +9,8 @@ function Command:initialize(Client, Data)
 
     self.Data = Data
     self.Data.type = 1
-    --self.Data.name_localizations = self.Data.name_localizations or {}
-    --self.Data.description_localizations = self.Data.description_localizations or {}
+    self.Data.name_localizations = self.Data.name_localizations or {}
+    self.Data.description_localizations = self.Data.description_localizations or {}
 end
 
 function Command:SetName(Name)
