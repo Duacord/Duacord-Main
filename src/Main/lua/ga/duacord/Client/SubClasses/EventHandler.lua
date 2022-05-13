@@ -6,6 +6,8 @@ local GatewayOpcodes = Constant.Gateway.Opcodes
 local GuildClass = Import("ga.duacord.Client.Objects.Guild")
 local UserClass = Import("ga.duacord.Client.Objects.User")
 
+local InteractionClass = Import("ga.duacord.Client.Objects.Interaction")
+
 local function CountTable(ToCount)
     local Amount = 0
     for _, _ in pairs(ToCount) do
@@ -91,6 +93,12 @@ end
 function EventHandler.DispatchEvents.RESUMED(Data, Client, Shard)
     TypeWriter.Logger.Info("Shard " .. Shard.Id .. ": Received RESUMED")
     Client:Emit("Resumed", Shard.Id)
+end
+
+function EventHandler.DispatchEvents.INTERACTION_CREATE(Data, Client, Shard)
+    local Interaction = InteractionClass:new(Client)
+    Client.API:InsertTable(Interaction, Client.API:PatchTable(Data))
+    Client:Emit("RawInteraction", Interaction, Interaction.Type)
 end
 
 --Application Command Permissions Update	application command permission was updated

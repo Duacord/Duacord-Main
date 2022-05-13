@@ -1,5 +1,7 @@
 local Command = Object:extend()
 
+local Constant = Import("ga.duacord.Client.API.Constant")
+
 function Command:initialize(Client, Data)
     Data = Data or {}
     self.Client = Client
@@ -40,6 +42,15 @@ end
 
 function Command:Register(Guild)
     self.Client:RegisterApplicationCommand(self:Export(), Guild)
+
+    self.Client:On(
+        "RawInteraction",
+        function (Interaction, InteractionType)
+            if InteractionType ~= Constant.ApplicationCommands.Type.ApplicationCommand then return end
+            for Index, Value in pairs(Interaction) do print(Index, Value) end
+            p(InteractionType)
+        end
+    )
 end
 
 function Command:Export()

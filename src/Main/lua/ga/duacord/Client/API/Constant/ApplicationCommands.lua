@@ -1,5 +1,12 @@
 local ApplicationCommands = {}
 
+ApplicationCommands.Type = {}
+ApplicationCommands.Type.Ping	                             = 1
+ApplicationCommands.Type.ApplicationCommand	                 = 2
+ApplicationCommands.Type.MessageComponent	                 = 3
+ApplicationCommands.Type.ApplicationCommandAutocomplete	     = 4
+ApplicationCommands.Type.ModalSubmit	                     = 5
+
 ApplicationCommands.Option = {}
 ApplicationCommands.Option.SubCommand =             1
 ApplicationCommands.Option.SubCommandGroup =        2	
