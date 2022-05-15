@@ -20,4 +20,13 @@ ApplicationCommands.Option.Mentionable =            9
 ApplicationCommands.Option.Number =                 10
 ApplicationCommands.Option.Attachment =             11
 
+ApplicationCommands.Responses = {}
+ApplicationCommands.Responses.Pong = 1
+ApplicationCommands.Responses.ChannelMessageWithSource = 4
+ApplicationCommands.Responses.DeferredChannelMessageWithSource = 5
+ApplicationCommands.Responses.DeferredUpdateMessage = 6
+ApplicationCommands.Responses.UpdateMessage = 7
+ApplicationCommands.Responses.ApplicationCommandAutocompleteResult = 8
+ApplicationCommands.Responses.Modal = 9
+
 return ApplicationCommands
