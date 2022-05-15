@@ -16,14 +16,14 @@ end
 
 function Option:SetType(Type)
     if type(Type) == "string" then
-        self.Data.type = Constant.ApplicationCommands.Option[Type]
+        Type = Constant.ApplicationCommands.Option[Type]
     end
     self.Data.type = Type
 end
 
 --#region Name
 function Option:SetName(Name)
-    self.Data.name = Name
+    self.Data.name = string.lower(Name)
     return self
 end
 
@@ -60,7 +60,10 @@ function Option:AddChoice(Name, Value, Loc)
 end
 
 function Option:AddOption(OptionObject)
-    table.insert(self.Data.options, OptionObject:Export())
+    if type(OptionObject.Export) == "function" then
+        OptionObject = OptionObject:Export()
+    end
+    table.insert(self.Data.options, OptionObject)
     return self
 end
 
