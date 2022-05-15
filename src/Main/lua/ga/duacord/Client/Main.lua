@@ -33,11 +33,7 @@ function Client:initialize(Settings)
     self.Intents = {}
 
     -- Constructors
-    local CreateConstructor = Constructors.CreateConstructor
-    Client.Constructors = {}
-    Client.Constructors.SlashCommands = {}
-    Client.Constructors.SlashCommands.Command = CreateConstructor(self, Constructors.SlashCommands.Command)
-    Client.Constructors.SlashCommands.Option = CreateConstructor(self, Constructors.SlashCommands.Option)
+    Client.Constructors = Constructors(self)
 end
 
 function Client:Run(Token)
