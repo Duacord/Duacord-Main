@@ -9,10 +9,22 @@ function Command:initialize(Client, Data)
     Data.Callback = nil
     Data.callback = nil
 
+    self.Client:On(
+        "RawInteraction",
+        function (Interaction, InteractionType)
+            if InteractionType ~= Constant.ApplicationCommands.Type.ApplicationCommand then return end
+            if Interaction.Data.Name ~= self.Data.name then return end
+
+            self.Callback(Interaction, self)
+        end
+    )
+
     self.Data = Data
     self.Data.type = 1
     self.Data.name_localizations = self.Data.name_localizations or {}
     self.Data.description_localizations = self.Data.description_localizations or {}
+    self.Data.options = self.Data.options or {}
+    self.Data.dm_permission = false
 end
 
 function Command:SetName(Name)
@@ -35,6 +47,14 @@ function Command:SetDescriptionLocalization(Key, Desc)
     return self
 end
 
+function Command:AddOption(Option)
+    if type(Option.Export) == "function" then
+        Option = Option:Export()
+    end
+    table.insert(self.Data.options, Option)
+    return self
+end
+
 function Command:SetCallback(Fn)
     self.Callback = Fn
     return self
@@ -42,15 +62,6 @@ end
 
 function Command:Register(Guild)
     self.Client:RegisterApplicationCommand(self:Export(), Guild)
-
-    self.Client:On(
-        "RawInteraction",
-        function (Interaction, InteractionType)
-            if InteractionType ~= Constant.ApplicationCommands.Type.ApplicationCommand then return end
-            for Index, Value in pairs(Interaction) do print(Index, Value) end
-            p(InteractionType)
-        end
-    )
 end
 
 function Command:Export()
