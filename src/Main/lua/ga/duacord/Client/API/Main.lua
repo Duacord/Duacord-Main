@@ -17,6 +17,7 @@ local SuccessCodes = {
     [204] = true
 }
 function API:Request(Method, Endpoint, Data, Auth, Headers)
+    --print(Data)
     if Headers == nil then
         Headers = {}
     end
@@ -50,7 +51,7 @@ end
 function API:JsonRequest(Method, Endpoint, Data, Auth, Headers)
     local EncodedData
     if Data ~= nil then
-        EncodedData = Json.encode(Data)
+        EncodedData = Json.encode(Data, {indent = true})
     end
 
     if Headers == nil then
@@ -112,11 +113,15 @@ function API:InsertTable(Original, ToInsert)
     return TableInsert(Original, ToInsert)
 end
 
+local GenerateId = Import("ga.duacord.Client.API.APIHelpers.GenerateCustomId")
+function API:GenerateCustomId()
+    return GenerateId()
+end
+
 --#endregion
 
 --#region Application commands
 function API:BulkOverwriteGlobalApplicationCommands(Data)
-    p(Data)
     self:DiscordRequest(
         "PUT",
         string.format(
