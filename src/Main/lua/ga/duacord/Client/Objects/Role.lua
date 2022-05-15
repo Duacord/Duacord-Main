@@ -6,10 +6,11 @@ function Role:initialize(Client, Guild)
     self.Guild = Guild
 end
 
-function Role:BeforeInsert(Data)
+function Role.meta:__tostring()
+    return "Role: " .. self.Id
 end
-function Role:OnInsert(Data)
-    --for Index, Value in pairs(self) do print(Index, Value) end
+
+function Role:BeforeInsert(Data)
 end
 --#endregion
 

@@ -12,6 +12,10 @@ function Guild:initialize(Client)
     self.Channels = {}
 end
 
+function Guild.meta:__tostring()
+    return "Guild: " .. self.Id
+end
+
 function Guild:BeforeInsert(Data)
     Data.Region = nil
     Data.Presences = nil

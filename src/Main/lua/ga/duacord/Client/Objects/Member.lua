@@ -10,6 +10,10 @@ function Member:initialize(Client, Guild)
     self.Roles = {}
 end
 
+function Member.meta:__tostring()
+    return "Member: " .. self.Id
+end
+
 function Member:BeforeInsert(Data)
     
     self.Id = Data.User.Id
@@ -22,9 +26,6 @@ function Member:BeforeInsert(Data)
             table.insert(self.Roles, Role)
         end
     end
-end
-function Member:OnInsert(Data)
-    --for Index, Value in pairs(self) do print(Index, Value) end
 end
 --#endregion
 

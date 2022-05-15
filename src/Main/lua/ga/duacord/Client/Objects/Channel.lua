@@ -6,6 +6,10 @@ function Channel:initialize(Client, Parent, ParentType)
     self[ParentType] = Parent
 end
 
+function Channel.meta:__tostring()
+    return "Channel: " .. self.Id
+end
+
 function Channel:BeforeInsert(Data)
 end
 --#endregion
