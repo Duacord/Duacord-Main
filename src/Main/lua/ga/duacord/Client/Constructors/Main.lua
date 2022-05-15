@@ -7,13 +7,31 @@ local function CreateConstructor(Client, Class)
         return Object
     end
 end
-Constructors.CreateConstructor = CreateConstructor
 
+Constructors.Components = {}
+Constructors.Components.ActionRow = Import("ga.duacord.Client.Constructors.Components.ActionRow")
+Constructors.Components.TextInput = Import("ga.duacord.Client.Constructors.Components.TextInput")
 
+Constructors.Modal = {}
+Constructors.Modal.Modal = Import("ga.duacord.Client.Constructors.Modal.Modal")
 
 Constructors.SlashCommands = {}
 Constructors.SlashCommands.Command = Import("ga.duacord.Client.Constructors.SlashCommands.Command")
 Constructors.SlashCommands.Option = Import("ga.duacord.Client.Constructors.SlashCommands.Option")
 
-
-return Constructors
+local function WrapConstructors(Tbl, Client)
+    local ReturnData = {}
+    for Index, Value in pairs(Tbl) do
+        if type(Value) == "table" then
+            if type(Value.new) == "function" then
+                ReturnData[Index] = CreateConstructor(Client, Value)
+            else
+                ReturnData[Index] = WrapConstructors(Value, Client)
+            end
+        end
+    end
+    return ReturnData
+end
+return function (Client)
+    return WrapConstructors(Constructors, Client)
+end
