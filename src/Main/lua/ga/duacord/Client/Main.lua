@@ -101,7 +101,6 @@ function Client:SyncGlobalApplicationCommands()
             table.insert(SendData, CommandData)
         end
     end
-    --p(SendData)
     self.API:BulkOverwriteGlobalApplicationCommands(SendData)
 end
 
