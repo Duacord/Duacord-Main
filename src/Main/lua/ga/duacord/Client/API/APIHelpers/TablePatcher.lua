@@ -1,11 +1,11 @@
 local function TitleCase(Name)
-    if type(Name) ~= "string" then
-        return Name
-    end
     return Name:gsub("^%l", string.upper)
 end
 
 local function IndexPatcher(Name)
+    if type(Name) ~= "string" then
+        return Name
+    end
     local Segments = string.split(Name, "_")
     local ReturnSegments = {}
 
