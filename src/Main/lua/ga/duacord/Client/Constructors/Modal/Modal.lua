@@ -20,9 +20,10 @@ function Modal:initialize(Client, Data)
             if Interaction.Data.CustomId ~= self.Data.custom_id then return end
 
             local NewData = {}
-            for Index, Component in pairs(Interaction.Data) do
-                p(Component)
+            for Index, Component in pairs(Interaction.Data.Components) do
+                NewData[Component.Components[1].CustomId] = Component.Components[1]
             end
+            Interaction.Data = NewData
 
             self.Callback(Interaction, self)
         end
