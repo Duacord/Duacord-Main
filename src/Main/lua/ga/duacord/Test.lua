@@ -64,3 +64,7 @@ Client:On(
 
     end
 )
+
+Client:On("MessageCreate", function (Message)
+    --for Index, Value in pairs(Message) do print(Index, Value) end
+end)
