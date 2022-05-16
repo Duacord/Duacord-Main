@@ -11,7 +11,8 @@ TextInput2:SetLabel("Label2"):SetTitle("Title2"):SetRequired(true):SetStyle("Par
 
 local Modal = Client.Constructors.Modal.Modal()
 Modal:SetTitle("TestModal"):AddComponent(TextInput):AddComponent(TextInput2):SetCallback(function (Interaction)
-    --p(Interaction.Data)
+    p(Interaction.Data)
+    Interaction:Reply("Label " .. Interaction.Data.TextInput.Value .. " Label2 " .. Interaction.Data.TextInput2.Value)
 end)
 
 local Command = Client.Constructors.SlashCommands.Command()
@@ -22,7 +23,31 @@ Command:SetCallback(function (Interaction)
 end)
 Command:Register()
 
+do
+    local InputText = Client.Constructors.Components.TextInput()
+    InputText:SetLabel("Message")
+    InputText:SetTitle("Message")
+    InputText:SetRequired(true)
+    InputText:SetStyle("Paragraph")
+    InputText:SetId("Message")
 
+
+    local InputModal = Client.Constructors.Modal.Modal()
+    InputModal:SetTitle("Input message")
+    InputModal:AddComponent(InputText)
+    InputModal:SetCallback(function (Interaction)
+        Interaction:Reply(Interaction.Data.Message.Value)
+    end)
+    InputModal.Data.custom_id = "InputModal"
+
+    local SayCommand = Client.Constructors.SlashCommands.Command()
+    SayCommand:SetName("Say")
+    SayCommand:SetDescription("Say command")
+    SayCommand:SetCallback(function (Interaction)
+        Interaction:ShowModal(InputModal)
+    end)
+    SayCommand:Register()
+end
 
 Client:Run(require("fs").readFileSync("Token"))
 
