@@ -4,6 +4,7 @@ local Constant = Import("ga.duacord.Client.API.Constant")
 local GatewayOpcodes = Constant.Gateway.Opcodes
 
 local GuildClass = Import("ga.duacord.Client.Objects.Guild")
+local MessageClass = Import("ga.duacord.Client.Objects.Message")
 local UserClass = Import("ga.duacord.Client.Objects.User")
 
 local InteractionClass = Import("ga.duacord.Client.Objects.Interaction")
@@ -173,6 +174,14 @@ end
 --Invite Create	invite to a channel was created
 --Invite Delete	invite to a channel was deleted
 --Message Create	message was created
+function EventHandler.DispatchEvents.MESSAGE_CREATE(Data, Client, Shard)
+    local Message = MessageClass:new(Client)
+    Client.API:InsertTable(
+        Message,
+        Client.API:PatchTable(Data)
+    )
+    Client:Emit("MessageCreate", Message)
+end
 --Message Update	message was edited
 --Message Delete	message was deleted
 --Message Delete Bulk	multiple messages were deleted at once
