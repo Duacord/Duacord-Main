@@ -35,6 +35,11 @@ function Modal:SetTitle(Name)
     return self
 end
 
+function Modal:SetId(Id)
+    self.Data.custom_id = Id
+    return self
+end
+
 function Modal:AddComponent(Component)
     if type(Component.Export) == "function" then
         Component = Component:Export()

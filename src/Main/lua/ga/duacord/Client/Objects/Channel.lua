@@ -23,15 +23,7 @@ function Channel:Send(Data)
 
     self.Client.API:CreateMessage(
         self.Id,
-        {
-            content = Data.Content,
-            tts = Data.TTS,
-            embeds = Data.Embeds,
-            allowed_mentions = Data.AllowedMentions,
-            message_reference = Data.MessageReference,
-            components = Data.Components,
-            sticker_ids = Data.StickerIds
-        }
+        Data
     )
 end
 
