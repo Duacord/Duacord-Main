@@ -57,6 +57,12 @@ Client:On(
         p("Loaded")
         local Guild = Client:GetGuild("806963221469724723")
         local Channel = Guild:GetChannel("953030272151080961")
+        Channel:Send(
+            {
+                content = "Hallo",
+                
+            }
+        )
         print("Done")
 
 
