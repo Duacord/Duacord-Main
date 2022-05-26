@@ -1,5 +1,11 @@
 local MessageComponents = {}
 
+MessageComponents.Type = {}
+MessageComponents.Type.ActionRow = 1
+MessageComponents.Type.Button = 2
+MessageComponents.Type.SelectMenu = 3
+MessageComponents.Type.TextInput = 4
+
 MessageComponents.Button = {}
 MessageComponents.Button.Style = {}
 MessageComponents.Button.Style.Primary = 1

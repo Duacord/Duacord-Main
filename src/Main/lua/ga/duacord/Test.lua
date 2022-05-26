@@ -55,13 +55,19 @@ Client:On(
     "Loaded",
     function()
         p("Loaded")
-        local Guild = Client:GetGuild("806963221469724723")
-        local Channel = Guild:GetChannel("953030272151080961")
+        local Guild = Client:GetGuild("783625199702245436")
+        local Channel = Guild:GetChannel("783731240138047529")
         Channel:Send(
-            {
-                content = "Hallo",
-                
-            }
+            Client.Constructors.Message.Message():SetContent("Hello World!")
+            :AddComponent(
+                Client.Constructors.Components.Button():SetLabel("Hoi"):SetId("HoiButton"):SetCallback(function (Interaction)
+                    p("Hoi")
+                    Interaction:Reply("Hoi")
+                    for Index, Value in pairs(Interaction) do
+                        print(Index, Value)
+                    end
+                end)
+            )
         )
         print("Done")
 

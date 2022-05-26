@@ -20,6 +20,9 @@ function Channel:Send(Data)
             Content = Data
         }
     end
+    if type(Data.Export) == "function" then
+        Data = Data:Export()
+    end
 
     self.Client.API:CreateMessage(
         self.Id,

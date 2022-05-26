@@ -11,19 +11,14 @@ function Button:initialize(Client, Data)
 
     self.Data = Data
     self.Data.type = 2
+    self.Data.style = Data.style or Constant.MessageComponents.Button.Style.Primary
 
     self.Client:On(
         "RawInteraction",
         function (Interaction, InteractionType)
             if InteractionType ~= Constant.ApplicationCommands.Type.MessageComponent then return end
-            for Index, Value in pairs(Interaction) do print(Index, Value) end
+            if Interaction.Data.ComponentType ~= Constant.MessageComponents.Type.Button then return end
             if Interaction.Data.CustomId ~= self.Data.custom_id then return end
-
-            local NewData = {}
-            for Index, Component in pairs(Interaction.Data.Components) do
-                NewData[Component.Components[1].CustomId] = Component.Components[1]
-            end
-            Interaction.Data = NewData
 
             self.Callback(Interaction, self)
         end
