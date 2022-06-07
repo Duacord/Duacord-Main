@@ -20,9 +20,10 @@ Constructors.Message.Message = Import("ga.duacord.Client.Constructors.Message.Me
 Constructors.Modal = {}
 Constructors.Modal.Modal = Import("ga.duacord.Client.Constructors.Modal.Modal")
 
-Constructors.SlashCommands = {}
-Constructors.SlashCommands.Command = Import("ga.duacord.Client.Constructors.SlashCommands.Command")
-Constructors.SlashCommands.Option = Import("ga.duacord.Client.Constructors.SlashCommands.Option")
+Constructors.Commands = {}
+Constructors.Commands.SlashCommand = Import("ga.duacord.Client.Constructors.Commands.SlashCommand")
+Constructors.Commands.Option = Import("ga.duacord.Client.Constructors.Commands.SlashOption")
+Constructors.Commands.UserCommand = Import("ga.duacord.Client.Constructors.Commands.UserCommand")
 
 local function WrapConstructors(Tbl, Client)
     local ReturnData = {}
