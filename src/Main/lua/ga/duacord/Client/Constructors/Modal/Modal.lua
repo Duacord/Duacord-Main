@@ -11,7 +11,6 @@ function Modal:initialize(Client, Data)
 
     self.Data = Data
     self.Data.components = {}
-    self.Data.custom_id = Client.API:GenerateCustomId()
 
     self.Client:On(
         "RawInteraction",
