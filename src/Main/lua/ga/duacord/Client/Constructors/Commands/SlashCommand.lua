@@ -1,8 +1,8 @@
-local Command = Object:extend()
+local SlashCommand = Object:extend()
 
 local Constant = Import("ga.duacord.Client.API.Constant")
 
-function Command:initialize(Client, Data)
+function SlashCommand:initialize(Client, Data)
     Data = Data or {}
     self.Client = Client
     self.Callback = Data.Callback or Data.callback or function () end
@@ -27,27 +27,27 @@ function Command:initialize(Client, Data)
     self.Data.dm_permission = false
 end
 
-function Command:SetName(Name)
+function SlashCommand:SetName(Name)
     self.Data.name = string.lower(Name)
     return self
 end
 
-function Command:SetNameLocalization(Key, Name)
+function SlashCommand:SetNameLocalization(Key, Name)
     self.Data.name_localizations[Key] = Name
     return self
 end
 
-function Command:SetDescription(Desc)
+function SlashCommand:SetDescription(Desc)
     self.Data.description = Desc
     return self
 end
 
-function Command:SetDescriptionLocalization(Key, Desc)
+function SlashCommand:SetDescriptionLocalization(Key, Desc)
     self.Data.description_localizations[Key] = Desc
     return self
 end
 
-function Command:AddOption(Option)
+function SlashCommand:AddOption(Option)
     if type(Option.Export) == "function" then
         Option = Option:Export()
     end
@@ -55,17 +55,17 @@ function Command:AddOption(Option)
     return self
 end
 
-function Command:SetCallback(Fn)
+function SlashCommand:SetCallback(Fn)
     self.Callback = Fn
     return self
 end
 
-function Command:Register(Guild)
+function SlashCommand:Register(Guild)
     self.Client:RegisterApplicationCommand(self:Export(), Guild)
 end
 
-function Command:Export()
+function SlashCommand:Export()
     return self.Data
 end
 
-return Command
+return SlashCommand
