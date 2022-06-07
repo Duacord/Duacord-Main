@@ -59,11 +59,11 @@ end
 
 function EventHandler:HandleDispatch(Data, Event)
     print(Event)
-    --p(Data)
+    p(Data)
     --for Index, Value in pairs(Data) do
     --    print(Index, Value)
     --end
-    print(require("json").encode(Data, {indent = true}))
+    --print(require("json").encode(Data, {indent = true}))
     print()
 
     if self.DispatchEvents[Event] then
