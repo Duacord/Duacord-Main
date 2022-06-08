@@ -59,7 +59,6 @@ end
 
 function EventHandler:HandleDispatch(Data, Event)
     print(Event)
-    p(Data)
     --for Index, Value in pairs(Data) do
     --    print(Index, Value)
     --end
