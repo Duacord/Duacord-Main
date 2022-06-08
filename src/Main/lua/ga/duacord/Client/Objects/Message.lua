@@ -23,8 +23,6 @@ function Message:BeforeInsert(Data)
         self.Author = self.Member
         Data.Author = nil
     end
-    p(Data)
-
 end
 --#endregion
 

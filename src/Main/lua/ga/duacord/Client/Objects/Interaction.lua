@@ -12,7 +12,6 @@ function Interaction.meta:__tostring()
 end
 
 function Interaction:BeforeInsert(Data)
-    p(Data)
     if Data.GuildId ~= nil then
         self.Guild = self.Client:GetGuild(Data.GuildId)
         Data.GuildId = nil
