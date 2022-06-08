@@ -1,5 +1,7 @@
 local UserCommand = Object:extend()
 
+local Constant = Import("ga.duacord.Client.API.Constant")
+
 function UserCommand:initialize(Client, Data)
     Data = Data or {}
     self.Client = Client
@@ -23,6 +25,10 @@ end
 
 function UserCommand:SetName(Name)
     self.Data.name = Name
+end
+
+function UserCommand:SetCallback(Fn)
+    self.Callback = Fn
 end
 
 function UserCommand:Register(Guild)
