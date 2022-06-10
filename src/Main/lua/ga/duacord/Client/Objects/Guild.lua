@@ -22,11 +22,9 @@ function Guild:BeforeInsert(Data)
 
     if Data.Members then
         for Index, MemberData in pairs(Data.Members) do
-
             local Member = MemberClass:new(self.Client, self)
             self.Client.API:InsertTable(Member, MemberData)
             self.Members[Member.User.Id] = Member
-
         end
         Data.Members = nil
     end
