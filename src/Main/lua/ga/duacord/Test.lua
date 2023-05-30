@@ -32,6 +32,7 @@ do
     local UserCommand = Client.Constructors.Commands.UserCommand()
     UserCommand:SetName("Hello")
     UserCommand:SetCallback(function (Interaction)
+        for I, V in pairs(Interaction.Data) do print(I, V) end
         Interaction:Reply("Hi")
     end)
     UserCommand:Register()
@@ -88,5 +89,6 @@ Client:On(
 )
 
 Client:On("MessageCreate", function (Message)
-    --for Index, Value in pairs(Message) do print(Index, Value) end
+    for Index, Value in pairs(Message) do print(Index, Value) end
+    p(Message.Content)
 end)

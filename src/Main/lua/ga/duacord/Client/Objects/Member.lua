@@ -6,7 +6,6 @@ local UserClass = Import("ga.duacord.Client.Objects.User")
 function Member:initialize(Client, Guild)
     self.Client = Client
     self.Guild = Guild
-    self.User = UserClass:new(Client)
     self.Roles = {}
 end
 
@@ -17,7 +16,17 @@ end
 function Member:BeforeInsert(Data)
     
     self.Id = Data.User.Id
-    self.Client.API:InsertTable(self.User, Data.User)
+    if Data.User ~= nil then
+        local User = self.Client:GetUser(self.Id)
+        if User == nil then
+            User = UserClass:new(self.Client)
+            self.Client.API:InsertTable(User, Data.User)
+            self.Client.Users[User.Id] = User
+        else
+            User = self.Client:GetUser(self.Id)
+        end
+        self.User = User
+    end
     Data.User = nil
 
     for Index, RoleId in pairs(Data.Roles) do

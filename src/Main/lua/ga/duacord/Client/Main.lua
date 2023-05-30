@@ -26,6 +26,7 @@ function Client:initialize(Settings)
     self.API = API:new(self)
     self.Shards = {}
     self.Guilds = {}
+    self.Users = {}
     self.ApplicationCommands = {}
     self.ApplicationCommands.Global = {}
     self.ApplicationCommands.Guild = {}
@@ -110,6 +111,10 @@ end
 
 function Client:GetGuild(Id)
     return self.Guilds[Id]
+end
+
+function Client:GetUser(Id)
+    return self.Users[Id]
 end
 
 return Client

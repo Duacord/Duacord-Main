@@ -189,6 +189,13 @@ end
 --Message Reaction Remove All	all reactions were explicitly removed from a message
 --Message Reaction Remove Emoji	all reactions for a given emoji were explicitly removed from a message
 --Presence Update	user was updated
+function EventHandler.DispatchEvents.PRESENCE_UPDATE(Data, Client, Shard)
+    --p(Data)
+    --print()
+    --for Index, Value in pairs(Client:GetGuild(Data.guild_id):GetMember(Data.user.id)) do
+    --    print(Index, Value)
+    --end
+end
 --Stage Instance Create	stage instance was created
 --Stage Instance Delete	stage instance was deleted or closed
 --Stage Instance Update	stage instance was updated
